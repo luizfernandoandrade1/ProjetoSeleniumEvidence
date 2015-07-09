@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.projetoseleniumevidence.evidence.RelatorioEvidencia;
@@ -24,6 +25,7 @@ public class TestEvidencia {
 	List<SeleniumEvidence> evidenceList;
 	RelatorioEvidencia report;
 	String errorMessage;
+	WebElement element;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -32,13 +34,27 @@ public class TestEvidencia {
 	}
 
 	@Test
-	public void gerarEvidencia() throws IOException {
+	public void testGerarEvidencia() throws IOException {
 		try {
-			driver.get("http://seleniumhq.org");
-			evidenceList.add(new SeleniumEvidence("Selenium page", takeScreenshot(driver)));
+			driver.get("http://localhost:8080/ProjetoTesteFuncional/index.jsp");
+			evidenceList.add(new SeleniumEvidence("Projeto Teste Funcional", takeScreenshot(driver)));
 			
-			driver.findElement(By.linkText("Download")).click();
-			evidenceList.add(new SeleniumEvidence("Click in Download link", takeScreenshot(driver)));		
+			driver.findElement(By.id("avaliarAluno")).click();
+			evidenceList.add(new SeleniumEvidence("Clique em Avaliar Aluno", takeScreenshot(driver)));
+			
+			element = driver.findElement(By.name("vNome"));
+			element.sendKeys("Charleston");
+			element = driver.findElement(By.name("vNota1"));
+			element.sendKeys("7");
+			element = driver.findElement(By.name("vNota2"));
+			element.sendKeys("10");
+			element = driver.findElement(By.name("vFrequencia"));
+			element.sendKeys("13");
+			
+			evidenceList.add(new SeleniumEvidence("Cadastro do Aluno", takeScreenshot(driver)));
+			
+			driver.findElement(By.name("Enviar")).click();
+			evidenceList.add(new SeleniumEvidence("Avaliação do Aluno", takeScreenshot(driver)));
 			
 		} catch (Exception e) {
 			
