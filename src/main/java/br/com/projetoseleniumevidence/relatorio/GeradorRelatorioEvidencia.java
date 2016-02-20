@@ -27,7 +27,7 @@ import br.com.projetoseleniumevidence.utils.SeleniumEvidenceUtils;
 
 public class GeradorRelatorioEvidencia {
 
-	public static void generareEvidenceReport(RelatorioEvidencia relatorioEvidencia, TipoRelatorio tiposRelatorio) throws IOException {
+	public static void geradorEvidencia(RelatorioEvidencia relatorioEvidencia, TipoRelatorio tiposRelatorio) throws IOException {
 		List<SeleniumEvidence> data = relatorioEvidencia.getEvidenciaList();
 
 		Properties properties = SeleniumEvidenceUtils.carregarPropriedades();
